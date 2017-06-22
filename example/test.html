@@ -53,38 +53,125 @@
 
     <div id="app1" style="padding: 30px;">
         <p>formatter column with scopedSlot</p>
-        <el-table :data="model.menus" border max-height="400">
-            <el-table-column
-                prop="id" 
-                label="id" 
+        <el-table :data="model.menus"  max-height="400">
+            <!--<el-table-column
+                prop="id"
+                label="id"
                 type="selection"
                 fixed></el-table-column >
+                file-icon="icon icon-file"
+                folder-icon="icon icon-folder"
+                -->
             <el-table-tree-column  
-                fixed
                 :expand-all="!!!1"
                 :remote="remote"
-                file-icon="icon icon-file" 
-                folder-icon="icon icon-folder" 
-                prop="label" 
-                label="title" 
+                class-name="version_name"
+                prop="label"
+                label="版本名称"
                 :show-overflow-tooltip="true" 
-                width="320">
+                width="160">
                 <template scope="scope" >
-                    <span>prefix =></span>
-                    <span @click="text(scope)">{{scope.row.label}} -- {{scope.row.id}}</span> 
-                    <span><= suffix</span>   
+                    <span @click="text(scope)" style="">{{scope.row.label}} - {{scope.row.id}}</span>
                 </template>
+
             </el-table-tree-column>
-            <el-table-column 
-                prop="description" 
-                label="Description" 
-                width="180"
-                ></el-table-column >
+            <el-table-column
+                    prop="more_oprate"
+                    label=""
+                    width="140"
+            >
+                <template scope="scope">
+                    <div class="font_color_blue" style="float:left;margin-right:10px;">转测试</div>
+                    <el-popover trigger="hover" placement="bottom">
+                        <div><a>添加子版本</a></div>
+                        <div><a>编辑</a></div>
+                        <div><a>删除</a></div>
+                        <div slot="reference" class="more_icon">
+                            <el-icon name="more" class=""></el-icon>
+                        </div>
+                    </el-popover>
+                </template>
+            </el-table-column >
+            <el-table-column
+                prop="description"
+                label="开发进度"
+                width="260"
+                >
+                <template scope="scope" >
+                    <el-icon name="document" class="icon_blue"></el-icon>
+                    <span >需求（{{scope.row.id}} / {{scope.row.id}}）</span>
+                    <el-icon name="document" class="icon_blue"></el-icon>
+                    <span >缺陷（{{scope.row.id}} / {{scope.row.id}}）</span>
+                </template>
+            </el-table-column >
+            <el-table-column
+                    prop="progressbar"
+                    label=""
+                    width="256"
+            >
+                <template scope="scope" >
+                    <el-progress :text-inside="true" :stroke-width="16" :percentage="progessData(scope)"></el-progress>
+                </template>
+            </el-table-column >
+            <el-table-column
+                    prop="status"
+                    label="状态"
+                    width="100"
+            ></el-table-column >
+            <el-table-column
+                    prop="begin_date"
+                    label="预计开始时间"
+                    width="120"
+            ></el-table-column >
+            <el-table-column
+                    prop="end_date"
+                    label="预计结束时间"
+                    width="120"
+            ></el-table-column >
         </el-table>
 
     </div>
+    <style>
+        .el-table__body{
+            font-size: 12px;
+            width: 100%;
+            color:#757A86;
+        }
+        .font_color_blue{
+            color:#0486FE;
+        }
+        .version_name span{
+            color:#0486FE;
+        }
+        .icon_blue{
+            color:#86BBFF;
+        }
+        .more_icon{
+            float:left;
+            margin-top:4px;
+            width: 16px;
+            line-height:16px;
+            background: #539EFF;
+            text-align: center;
+            border-radius: 50%;
+            color:#FFF;
+        }
+        .el-progress-bar__inner{
+            border-radius: 1px;
+            background: #D3E6FF;
+        }
+        .el-progress-bar__outer{
+            border-radius: 1px;
+            background: #FFF;
+            border: 1px solid #71B0FF;
+        }
+        .el-progress-bar__innerText{
+            width:32px;
+            color:#3B8DF6;
+        }
+    </style>
     <script type="text/javascript">
-    window.app = new Vue({
+     window.app = new Vue({
         el: "#app",
         data: {
             model: {
@@ -117,6 +204,9 @@
             },
             text(scope){
                 console.info(scope)
+            },
+            progessData(scope){
+                return scope.row.id
             }
         }
     })

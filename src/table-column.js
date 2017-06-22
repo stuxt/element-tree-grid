@@ -23,7 +23,8 @@ const methods = {
     },
     icon(row) {
         if (row.$extra && row.$extra.loading == true) return 'el-icon-loading';
-        return row.$extra && row.$extra.expanded ? 'el-icon-caret-bottom' : 'el-icon-caret-right';
+        //return row.$extra && row.$extra.expanded ? 'el-icon-caret-bottom' : 'el-icon-caret-right';
+        return row.$extra && row.$extra.expanded ? 'el-icon-minus' : 'el-icon-plus';
     },
     has(context, item, list) {
         let key = context.props.treeKey,
@@ -240,13 +241,16 @@ export default {
                     }
                 }
             }, [
-                h('span', { style: { paddingLeft: methods.paddingLeft(context, scope.row) } }, [
-                    h('i', { class: methods.icon(scope.row) }),
-                    scope._self._v(" "),
+                h('span', { style: { paddingLeft: methods.paddingLeft(context, scope.row) ,color:"#86BBFF"} }, [
                     h('i', {
+                        class: methods.icon(scope.row) ,
+                        staticStyle:{"border":"1px solid #86BBFF","border-radius":"1px"}
+                    }),
+                    scope._self._v(" "),
+                    /*h('i', {
                         class: methods.floderIcon(context, scope.row),
                         staticStyle: { "padding-right": "7px" }
-                    })
+                    })*/
                 ]),
                 methods.evalDetails(context,scope,h)
             ]);
