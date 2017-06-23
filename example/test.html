@@ -78,7 +78,7 @@
             <el-table-column
                     prop="more_oprate"
                     label=""
-                    width="140"
+                    width="120"
             >
                 <template scope="scope">
                     <div class="font_color_blue" style="float:left;margin-right:10px;">转测试</div>
@@ -146,6 +146,9 @@
         .icon_blue{
             color:#86BBFF;
         }
+        .el-popover{
+            min-width:80px;
+        }
         .more_icon{
             float:left;
             margin-top:4px;
@@ -169,6 +172,7 @@
             width:32px;
             color:#3B8DF6;
         }
+
     </style>
     <script type="text/javascript">
      window.app = new Vue({
@@ -206,6 +210,8 @@
                 console.info(scope)
             },
             progessData(scope){
+                //console.info("scope:"+scope);
+                //console.info("row:"+scope.row);
                 return scope.row.id
             }
         }
